@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gpt_app/widgets/text_widget.dart';
 
 Color scaffoldBackgroundColor = const Color(0xFF343541);
 Color cardColor = const Color(0xFF444654);
@@ -13,20 +12,20 @@ List<String> models = [
   'Model6',
 ];
 
-List<DropdownMenuItem<Object?>>? get getModels {
-  List<DropdownMenuItem<Object?>>? modelitems =
-      List<DropdownMenuItem<Object?>>.generate(
-    models.length,
-    (index) => DropdownMenuItem(
-      value: models[index],
-      child: TextWidget(
-        label: models[index],
-        fontSize: 15,
-      ),
-    ),
-  );
-  return modelitems;
-}
+// List<DropdownMenuItem<Object?>>? get getModels {
+//   List<DropdownMenuItem<Object?>>? modelitems =
+//       List<DropdownMenuItem<Object?>>.generate(
+//     models.length,
+//     (index) => DropdownMenuItem(
+//       value: models[index],
+//       child: TextWidget(
+//         label: models[index],
+//         fontSize: 15,
+//       ),
+//     ),
+//   );
+//   return modelitems;
+// }
 
 final chatMessages = [
   {

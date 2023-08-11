@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gpt_app/constants/constants.dart';
-import 'package:gpt_app/services/api_service.dart';
+import 'package:gpt_app/models/models_provider.dart';
 import 'package:gpt_app/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
 
 class DropDownWidget extends StatefulWidget {
   const DropDownWidget({super.key});
@@ -11,11 +12,13 @@ class DropDownWidget extends StatefulWidget {
 }
 
 class _DropDownWidgetState extends State<DropDownWidget> {
-  String currentModel = 'text-babbage-001';
+  String? currentModel;
   @override
   Widget build(BuildContext context) {
+    final modelsProvider = Provider.of<ModelsProvider>(context, listen: false);
+    currentModel = modelsProvider.getcurrentModel;
     return FutureBuilder(
-        future: ApiService.getModels(),
+        future: modelsProvider.getALLModels(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Center(
@@ -40,7 +43,10 @@ class _DropDownWidgetState extends State<DropDownWidget> {
                     ),
                     value: currentModel,
                     onChanged: (value) {
-                      currentModel = value.toString();
+                      setState(() {
+                        currentModel = value.toString();
+                      });
+                      modelsProvider.setCurrentModel(value.toString());
                     },
                   ),
                 );

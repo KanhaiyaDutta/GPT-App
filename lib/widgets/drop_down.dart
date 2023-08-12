@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gpt_app/constants/constants.dart';
-import 'package:gpt_app/models/models_provider.dart';
+import 'package:gpt_app/providers/models_provider.dart';
 import 'package:gpt_app/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 

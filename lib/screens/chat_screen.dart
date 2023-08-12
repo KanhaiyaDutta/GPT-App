@@ -7,6 +7,7 @@ import 'package:gpt_app/providers/chat_provider.dart';
 import 'package:gpt_app/providers/models_provider.dart';
 import 'package:gpt_app/services/services.dart';
 import 'package:gpt_app/widgets/chat_widget.dart';
+import 'package:gpt_app/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 import '../services/assets_manager.dart';
 
@@ -141,7 +142,26 @@ class _ChatScreenState extends State<ChatScreen> {
   Future<void> sendMessageFCT(
       {required ModelsProvider modelsProvider,
       required ChatProvider chatProvider}) async {
+    if (_isTyping) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content:
+              TextWidget(label: "You can't send multiple messages at a time"),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+    if (_controller.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: TextWidget(label: "Please write a message"),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
     try {
+      final msg = _controller.text;
       setState(() {
         _isTyping = true;
         chatProvider.addUserMessage(msg: _controller.text);
@@ -149,12 +169,18 @@ class _ChatScreenState extends State<ChatScreen> {
         _focusNode.unfocus();
       });
       await chatProvider.sendMessageAndGetAnswer(
-        msg: _controller.text,
+        msg: msg,
         chosenModelId: modelsProvider.getcurrentModel,
       );
       setState(() {});
     } catch (e) {
       log('error $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: TextWidget(label: e.toString()),
+          backgroundColor: Colors.red,
+        ),
+      );
     } finally {
       setState(() {
         scrollListToEnd();

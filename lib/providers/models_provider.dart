@@ -3,7 +3,7 @@ import 'package:gpt_app/models/models_model.dart';
 import 'package:gpt_app/services/api_service.dart';
 
 class ModelsProvider with ChangeNotifier {
-  String currentModel = 'text-babbage-001';
+  String currentModel = 'gemini-pro';
 
   String get getcurrentModel {
     return currentModel;
@@ -14,13 +14,13 @@ class ModelsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  List<ModelsModel> modelsList = [];
+  String modelsList = "";
 
-  List<ModelsModel> get getModelsList {
+  String get getModelsList {
     return modelsList;
   }
 
-  Future<List<ModelsModel>> getALLModels() async {
+  Future<String> getALLModels() async {
     modelsList = await ApiService.getModels();
     return modelsList;
   }

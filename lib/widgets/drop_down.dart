@@ -32,11 +32,11 @@ class _DropDownWidgetState extends State<DropDownWidget> {
                     dropdownColor: scaffoldBackgroundColor,
                     iconEnabledColor: Colors.white,
                     items: List<DropdownMenuItem<Object?>>.generate(
-                      snapshot.data!.length,
+                      1,
                       (index) => DropdownMenuItem(
-                        value: snapshot.data![index].id,
+                        value: snapshot.data!,
                         child: TextWidget(
-                          label: snapshot.data![index].id,
+                          label: snapshot.data!,
                           fontSize: 15,
                         ),
                       ),
